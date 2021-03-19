@@ -2,20 +2,24 @@ import {useState, useEffect} from 'react'
 import axios from "axios";
 import {useParams} from 'react-router-dom'
 
-const EditCustomer = () => {
+const EditCustomer = (props) => {
 
     const {id} = useParams()
+    const temp = props.location.state
 
     const [customer, setCustomer] = useState()
 
     useEffect(() => {
-        console.log(id)
-        axios.get('http://localhost:8888/customers/'+id)
-            .then(res => setCustomer(res.data[0]))
+        // console.log(id)
+        // axios.get('http://localhost:8888/customers/'+id)
+        //     .then(res => setCustomer(res.data[0]))
+        setCustomer(temp)
     }, [])
 
-    const handleSubmit = () => {
-        
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        axios.patch('http://localhost:8888/customers/editCustomer/'+customer._id, customer)
+            .then(console.log('Edit Success'))
     }
 
     return(
