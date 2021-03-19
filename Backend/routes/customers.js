@@ -37,19 +37,30 @@ router.post('/', (req, res) => {
 })
 
 router.patch('/editCustomer/:id', (req, res) => {
-    const c = Customer.find({_id : req.params.id})
-
+    // console.log(Customer.find({_id : req.params._id}))
     try{
-        Customer.deleteOne({_id : req.params.id})
-        c.save()
+        Customer.find({_id : req.params.id}).remove()
+        const customer = new Customer({
+            first_name : req.body.first_name,
+            last_name : req.body.last_name,
+            gender : req.body.gender
+        })
+        console.log('new one', customer)
+        const c = customer.save()
+        res.send(c)
     } catch (e) {
         console.log(e)
     }
 })
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', async (req, res) => {
+    console.log('im in here')
     try{
-        Customer.deleteOne({_id : req.params.id})
+        console.log(req.params.id)
+        const c = await Customer.find({_id: req.params.id}).remove()
+
+        console.log(c)
+        res.send(c)
     } catch (e) {
         console.log(e)
     }

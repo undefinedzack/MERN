@@ -14,6 +14,8 @@ const AddCustomer = () => {
             .then(res => console.log(res))
     }
 
+
+
     return(
         <>
             {console.log(customer)}
@@ -42,6 +44,7 @@ const AddCustomer = () => {
             <br />
 
             <button type={'submit'} onClick={(e) => handleSubmit(e)} >Add Customer</button>
+
         </>
     )
 }

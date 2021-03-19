@@ -12,8 +12,15 @@ const Home = () => {
             .then(console.log(customers))
     }, [])
 
+    const handleDelete = (id) => {
+        axios.delete('http://localhost:8888/customers/'+id)
+            .then(console.log('deleting...'))
+    }
+
     return(
         <>
+            <Link to={'/addCustomer'}>Add Customer</Link>
+            <br />
             Search : <input onChange={(e) => setSearch(e.target.value)} value={search}/>
             <table style={{borderCollapse: 'collapse'}}>
                 <tr>
@@ -42,6 +49,10 @@ const Home = () => {
                                         state : customer
                                     }}>Edit</Link>
                                 </td>
+                                <td>
+                                    <button type={'submit'} onClick={ () => handleDelete(customer._id)} >Delete</button>
+                                </td>
+
                             </tr>
                         )
                     }
